@@ -1,6 +1,5 @@
 import {
   Box,
-  Flex,
   Button,
   FormControl,
   FormLabel,
@@ -19,21 +18,24 @@ const Upload = () => {
         alignItems="center"
         justifyContent="center"
         minH="100vh"
+        p={8}
+        gap={4}
       >
-        <Flex
+        <Box
+          display={{ base: "none", lg: "flex" }}
           border="1px solid #000"
-          w="50%"
+          w={{ base: "100%", lg: "50%" }}
           justifyContent="center"
           alignItems="center"
         >
           <Heading>Image will be here </Heading>
-        </Flex>
+        </Box>
         <Box
           display="flex"
           flexDir="column"
           justifyContent="center"
           alignItems="center"
-          w="50%"
+          w={{ base: "100%", lg: "50%" }}
         >
           <Heading mb="40px">Uplaod Document</Heading>
           <form w={{ base: "90%", sm: "70%", md: "300px" }}>
@@ -50,13 +52,17 @@ const Upload = () => {
                 <FormLabel>Description</FormLabel>
                 <Input placeholder="Enter Description" size="lg" />
               </FormControl>
+              <FormControl isRequired>
+                <FormLabel>Select file</FormLabel>
+                <Input placeholder="Enter Subject" size="lg" type="file" />
+              </FormControl>
             </Stack>
 
             <Button
               mt={4}
               colorScheme="blue"
               type="submit"
-              w={{ base: "90%", sm: "70%", md: "400px" }}
+              w={{ base: "100%", sm: "70%", md: "400px" }}
             >
               Submit
             </Button>
