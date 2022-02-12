@@ -1,9 +1,12 @@
 import { ChakraProvider } from "@chakra-ui/react";
+import UserContextProvider from "../context/userContext";
 
 function MyApp({ Component, pageProps }) {
   return (
     <ChakraProvider>
-      <Component {...pageProps} />
+      <UserContextProvider>
+        <Component {...pageProps} />
+      </UserContextProvider>
     </ChakraProvider>
   );
 }

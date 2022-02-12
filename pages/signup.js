@@ -9,13 +9,25 @@ import {
   InputGroup,
   InputRightElement,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import Link from "next/link";
 import { FcGoogle } from "react-icons/fc";
+import { userContext } from "../context/userContext";
+import { useRouter } from "next/router";
 
 const Signup = () => {
   const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
+  const {googleSignin} = useContext(userContext)
+  const route = useRouter();
+  const handleOnLogin = async () => {
+    try {
+      await googleSignin();
+      route.push("/")
+    } catch (err) {
+      console.log(err)
+    }
+  }
   return (
     <>
       <Box
@@ -114,6 +126,7 @@ const Signup = () => {
           colorScheme="gray"
           variant="solid"
           color="black"
+          onClick={handleOnLogin}
         >
           Sign in with Google
         </Button>
