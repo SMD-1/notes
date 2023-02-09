@@ -1,11 +1,8 @@
-import { AlertDialog, AlertDialogBody, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, useDisclosure, AlertDialogOverlay, Button } from '@chakra-ui/react'
-import Head from 'next/head'
-import React from "react"
-import Image from 'next/image'
+import { Heading } from "@chakra-ui/react";
+import Head from "next/head";
+import React from "react";
 
 export default function Home() {
-  const { isOpen, onOpen, onClose } = useDisclosure()
-  const cancelRef = React.useRef()
   return (
     <div>
       <Head>
@@ -15,37 +12,8 @@ export default function Home() {
       </Head>
 
       <>
-        <Button colorScheme='red' onClick={onOpen} m={2}>
-          Delete Customer
-        </Button>
-
-        <AlertDialog
-          isOpen={isOpen}
-          leastDestructiveRef={cancelRef}
-          onClose={onClose}
-        >
-          <AlertDialogOverlay>
-            <AlertDialogContent>
-              <AlertDialogHeader fontSize='lg' fontWeight='bold'>
-                Delete Customer
-              </AlertDialogHeader>
-
-              <AlertDialogBody>
-                Are you sure? You can't undo this action afterwards.
-              </AlertDialogBody>
-
-              <AlertDialogFooter>
-                <Button ref={cancelRef} onClick={onClose}>
-                  Cancel
-                </Button>
-                <Button colorScheme='red' onClick={onClose} ml={3}>
-                  Delete
-                </Button>
-              </AlertDialogFooter>
-            </AlertDialogContent>
-          </AlertDialogOverlay>
-        </AlertDialog>
+        <Heading>Home Page</Heading>
       </>
     </div>
-  )
+  );
 }
