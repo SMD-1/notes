@@ -41,6 +41,10 @@ const Login = () => {
   }
   return (
     <Fragment>
+      <Link href="/">
+      <Button position="absolute" top={4} left={4} px={6} py={4} >Back</Button>
+      </Link>
+
       <Box
         w="100%"
         display="flex"
