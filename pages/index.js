@@ -6,8 +6,7 @@ import {
   Icon,
   Stack,
   Container,
-  createIcon,
-  useColorModeValue,
+  HStack,
 } from "@chakra-ui/react";
 import Head from "next/head";
 import Nav from "../components/Nav";
@@ -49,13 +48,14 @@ export default function Home() {
                 Assignment Dedo: The app that connects students, sharing
                 knowledge and resources for easier success.
               </Text>
-              <Stack
+              <HStack
                 direction={"column"}
                 spacing={3}
                 align={"center"}
                 alignSelf={"center"}
                 position={"relative"}
               >
+                
                 <Link href="/signup">
                   <Button
                     colorScheme={"green"}
@@ -65,33 +65,23 @@ export default function Home() {
                       bg: "green.500",
                     }}
                   >
-                    Create an account
+                    Login
                   </Button>
                 </Link>
-                {/* <Button variant={"link"} colorScheme={"blue"} size={"sm"}>
-                  Learn more
-                </Button> */}
-                {/* <Box>
-                  <Icon
-                    as={Arrow}
-                    color={useColorModeValue("gray.800", "gray.300")}
-                    w={71}
-                    position={"absolute"}
-                    right={-71}
-                    top={"10px"}
-                  />
-                  <Text
-                    fontSize={"lg"}
-                    fontFamily={"Caveat"}
-                    position={"absolute"}
-                    right={"-125px"}
-                    top={"-15px"}
-                    transform={"rotate(10deg)"}
+                <Link href="/signup">
+                  <Button
+                    colorScheme={"green"}
+                    bg={"green.400"}
+                    px={8}
+                    _hover={{
+                      bg: "green.500",
+                    }}
                   >
-                    Starting at $15/mo
-                  </Text>
-                </Box> */}
-              </Stack>
+                    Signup
+                  </Button>
+                </Link>
+                
+              </HStack>
             </Stack>
           </Container>
         </Box>
