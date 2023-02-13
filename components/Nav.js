@@ -18,9 +18,9 @@ import {
 import { GiHamburgerMenu } from "react-icons/gi";
 import { GrClose } from "react-icons/gr";
 
-const Links = ["Dashboard", "Projects", "Team"];
+const Links = ["Home", "Upload", "Team"];
 
-const NavLink = ({ children }) => (
+const NavLink = ({ children, endPoint }) => (
   <Link
     px={2}
     py={1}
@@ -29,7 +29,7 @@ const NavLink = ({ children }) => (
       textDecoration: "none",
       bg: useColorModeValue("gray.200", "gray.700"),
     }}
-    href={"#"}
+    href={endPoint == "upload" ? `/${endPoint}` : "/"}
   >
     {children}
   </Link>
@@ -52,8 +52,12 @@ export default function Nav() {
             onClick={isOpen ? onClose : onOpen}
           />
           <HStack spacing={8} alignItems={"center"}>
-            <Box fontWeight="bold" mr={{ base: "0", md: "20px" }}>
-              Assignment
+            <Box
+              fontWeight="bold"
+              fontSize="18px"
+              mr={{ base: "0", md: "20px" }}
+            >
+              {"<Assignment />"}
             </Box>
             <HStack
               as={"nav"}
@@ -62,7 +66,9 @@ export default function Nav() {
               display={{ base: "none", md: "flex" }}
             >
               {Links.map((link) => (
-                <NavLink key={link}>{link}</NavLink>
+                <NavLink key={link} endPoint={link.toLowerCase()}>
+                  {link}
+                </NavLink>
               ))}
             </HStack>
           </HStack>
