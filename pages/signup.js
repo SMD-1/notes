@@ -16,17 +16,28 @@ import { userContext } from "../context/userContext";
 import { useRouter } from "next/router";
 
 const Signup = () => {
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
   const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
-  const {googleSignin} = useContext(userContext)
+  const {googleSignin, register} = useContext(userContext)
   const route = useRouter();
-  const handleOnLogin = async () => {
+  const handleOnGoogleLogin = async () => {
     try {
       await googleSignin();
       route.push("/")
     } catch (err) {
       console.log(err)
     }
+  }
+  const registerHandler = async () => {
+    try {
+      await register(email, password);
+      route.push("/")
+    } catch (err) {
+      console.log(err)
+    }
+
   }
   return (
     <>
@@ -45,7 +56,7 @@ const Signup = () => {
           <Center letterSpacing="1px">Let's create your Account</Center>
         </Box>
         {/* username */}
-        <Input
+        {/* <Input
           placeholder="Usesrname *"
           size="lg"
           type={"text"}
@@ -54,7 +65,7 @@ const Signup = () => {
           mt={"40px"}
           outline={"none"}
           borderColor={"gray.400"}
-        />
+        /> */}
         {/* email */}
         <Input
           placeholder="Enter your email *"
@@ -65,6 +76,7 @@ const Signup = () => {
           mt={"20px"}
           outline={"none"}
           borderColor={"gray.400"}
+          onChange={(e) => setEmail(e.target.value)}
         />
         {/* password */}
         <InputGroup
@@ -79,6 +91,7 @@ const Signup = () => {
             variant="outline"
             type={show ? "text" : "password"}
             placeholder="Enter your password *"
+            onChange={(e) => setPassword(e.target.value)}
           />
           <InputRightElement width="4.5rem">
             <Button h="1.75rem" size="sm" onClick={handleClick}>
@@ -87,7 +100,7 @@ const Signup = () => {
           </InputRightElement>
         </InputGroup>
         {/* confirm password */}
-        <InputGroup
+        {/* <InputGroup
           size="lg"
           w={{ base: "90%", sm: "70%", md: "400px" }}
           borderColor={"gray.400"}
@@ -105,7 +118,7 @@ const Signup = () => {
               {show ? "Hide" : "Show"}
             </Button>
           </InputRightElement>
-        </InputGroup>
+        </InputGroup> */}
 
         <Button
           w={{ base: "90%", sm: "70%", md: "400px" }}
@@ -113,6 +126,7 @@ const Signup = () => {
           size={"lg"}
           border="2px solid rgba(255, 255, 255, 0.1)"
           colorScheme={"blue"}
+          onClick={registerHandler}
         >
           REGISTER
         </Button>
@@ -126,7 +140,7 @@ const Signup = () => {
           colorScheme="gray"
           variant="solid"
           color="black"
-          onClick={handleOnLogin}
+          onClick={handleOnGoogleLogin}
         >
           Sign in with Google
         </Button>

@@ -17,13 +17,23 @@ import { Fragment } from "react";
 import { userContext } from "../context/userContext";
 
 const Login = () => {
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
   const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
-  const {googleSignin} = useContext(userContext)
+  const {googleSignin, login} = useContext(userContext)
   const route = useRouter();
-  const handleOnLogin = async () => {
+  const handleOnGoogleLogin = async () => {
     try {
       await googleSignin();
+      route.push("/")
+    } catch (err) {
+      console.log(err)
+    }
+  }
+  const handleOnEmailAndPassLogin = async () => {
+    try {
+      await login(email, password)
       route.push("/")
     } catch (err) {
       console.log(err)
@@ -55,6 +65,7 @@ const Login = () => {
           mt={"40px"}
           outline={"none"}
           borderColor={"gray.400"}
+          onChange={(e) => setEmail(e.target.value)}
         />
         {/* password */}
         <InputGroup
@@ -69,6 +80,7 @@ const Login = () => {
             variant="outline"
             type={show ? "text" : "password"}
             placeholder="Enter your password *"
+            onChange={(e) => setPassword(e.target.value)}
           />
           <InputRightElement width="4.5rem">
             <Button h="1.75rem" size="sm" onClick={handleClick}>
@@ -83,6 +95,7 @@ const Login = () => {
           size={"lg"}
           border="2px solid rgba(255, 255, 255, 0.1)"
           colorScheme={"blue"}
+          onClick={handleOnEmailAndPassLogin}
         >
           LOGIN
         </Button>
@@ -95,7 +108,7 @@ const Login = () => {
           leftIcon={<FcGoogle size={"1.5rem"} />}
           variant="solid"
           color={"blackALpha.100"}
-          onClick={handleOnLogin}
+          onClick={handleOnGoogleLogin}
         >
           Login with Google
         </Button>

@@ -1,18 +1,28 @@
 import { useState, createContext } from "react";
-import { auth, signInWithGoogle } from "../firebase";
+import { auth, signInWithGoogle, registerWithEmailAndPassword, loginWithEmailAndPassword } from "../firebase";
 import { useAuthState} from "react-firebase-hooks/auth";
 
-export const userContext = createContext({ user: null, googleSignin: null, isLoading: false });
+export const userContext = createContext({ user: null, googleSignin: null, isLoading: true });
 
 const UserContextProvider = ({ children }) => {
   const [user, loading, error] = useAuthState(auth);
-  console.log(user, loading, error);
+  // console.log(user, loading, error);
   // const [user, setUser] = useState({ username: "danIsPro" });
-
+  const register = async (email, password) => {
+    const {user} = await registerWithEmailAndPassword(email, password)
+    // console.log(user)
+    return user;
+  }
+  const login = async (email, password) => {
+    const {user} = await loginWithEmailAndPassword(email, password)
+    // console.log(user)
+    return user
+  }
   const googleSignin = async () => {
     try {
       const {user} = await signInWithGoogle();
-      console.log(user);
+      // console.log(user);
+      return user;
     } catch (err) {
       console.log(err);
     }
@@ -23,7 +33,9 @@ const UserContextProvider = ({ children }) => {
       value={{
         user,
         googleSignin,
-        isLoading: loading
+        isLoading: loading,
+        register,
+        login
       }}
     >
       {children}
