@@ -1,41 +1,94 @@
-import { useState, createContext } from "react";
-import { auth, signInWithGoogle, registerWithEmailAndPassword, loginWithEmailAndPassword } from "../firebase";
-import { useAuthState} from "react-firebase-hooks/auth";
+import { useState, createContext, useEffect } from "react";
+import {
+  auth,
+  signInWithGoogle,
+  registerWithEmailAndPassword,
+  loginWithEmailAndPassword,
+  logout,
+} from "../firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { useRouter } from "next/router";
+import axios from "axios";
 
-export const userContext = createContext({ user: null, googleSignin: null, isLoading: true });
+export const userContext = createContext({
+  user: null,
+  FBUser: null,
+  googleSignin: null,
+  isLoading: true,
+});
 
 const UserContextProvider = ({ children }) => {
   const [user, loading, error] = useAuthState(auth);
-  // console.log(user, loading, error);
+  console.log(user, loading, error);
+  const [DBUser, setDBUser] = useState(null);
+  const router = useRouter();
+  useEffect(() => {
+    if (loading) return;
+    if (!user) return router.push("/signup");
+    const fetchUserFromDB = async () => {
+      try {
+        const res = await axios.post(
+          "http://localhost:4001/users/get-user-info",
+          { email: user.email }
+        );
+        console.log("user from DB", res.data);
+        setDBUser(res.data);
+      } catch (err) {
+        router.push("/complete-signup");
+      }
+    };
+    fetchUserFromDB();
+  }, [user]);
+
   // const [user, setUser] = useState({ username: "danIsPro" });
   const register = async (email, password) => {
-    const {user} = await registerWithEmailAndPassword(email, password)
+    try {
+      const { user } = await registerWithEmailAndPassword(email, password);
+      // console.log(user)
+      router.push("/complete-signup");
+      return user;
+    } catch (err) {
+      //TODO: show soemthing is wrong toast
+      console.log(err);
+    }
+  };
+
+  const login = async (email, password) => {
+    const { user } = await loginWithEmailAndPassword(email, password);
     // console.log(user)
     return user;
-  }
-  const login = async (email, password) => {
-    const {user} = await loginWithEmailAndPassword(email, password)
-    // console.log(user)
-    return user
-  }
+  };
   const googleSignin = async () => {
     try {
-      const {user} = await signInWithGoogle();
+      const { user } = await signInWithGoogle();
       // console.log(user);
+      router.push("/complete-signup");
       return user;
     } catch (err) {
       console.log(err);
     }
   };
 
+  const logoutUser = async () => {
+    try {
+      await logout();
+      // setUser(null)
+    } catch (err) {
+      console.log(err);
+    }
+    console.log("Logout");
+  };
+
   return (
     <userContext.Provider
       value={{
-        user,
+        user: DBUser,
+        FBUser: user,
         googleSignin,
         isLoading: loading,
         register,
-        login
+        login,
+        logoutUser,
       }}
     >
       {children}
