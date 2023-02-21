@@ -7,13 +7,50 @@ import {
   Input,
   Stack,
 } from "@chakra-ui/react";
+import axios from "axios";
 import Link from "next/link";
+import { useRef, useState } from "react";
 
 const Upload = () => {
+  const titleRef = useRef();
+  const subRef = useRef();
+  const descRef = useRef();
+  const [inputFile, setInputFile] = useState("");
+  const [thumbnail, setThumbnail] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleOnInputFileChange = (e) => {
+    const file = e.target.files[0];
+
+    if (!file) return;
+    setInputFile(file);
+    console.log(file);
+  };
+  const handleOnSubmit = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    try {
+      const formData = new FormData();
+      formData.append("title", titleRef.current.value);
+      formData.append("desc", descRef.current.value);
+      formData.append("subject", subRef.current.value);
+      formData.append("noteFile", inputFile);
+
+      const res = await axios.post("http://localhost:4001/notes", formData);
+      console.log(res);
+      setIsLoading(false);
+    } catch (err) {
+      console.log("err:", err);
+      setIsLoading(false);
+    }
+  };
+
   return (
     <>
       <Link href="/">
-        <Button position="absolute" top={4} left={4} px={6} py={4} >Back</Button>
+        <Button position="absolute" top={4} left={4} px={6} py={4}>
+          Back
+        </Button>
       </Link>
       <Box
         w="100%"
@@ -46,29 +83,45 @@ const Upload = () => {
             <Stack>
               <FormControl isRequired>
                 <FormLabel>Title</FormLabel>
-                <Input placeholder="Enter document title/name" size="lg" />
+                <Input
+                  ref={titleRef}
+                  placeholder="Enter document title/name"
+                  size="lg"
+                />
               </FormControl>
               <FormControl isRequired>
                 <FormLabel>Subject</FormLabel>
-                <Input placeholder="Enter Subject" size="lg" />
+                <Input ref={subRef} placeholder="Enter Subject" size="lg" />
               </FormControl>
               <FormControl>
                 <FormLabel>Description</FormLabel>
-                <Input placeholder="Enter Description" size="lg" />
+                <Input
+                  ref={descRef}
+                  placeholder="Enter Description"
+                  size="lg"
+                />
               </FormControl>
               <FormControl isRequired>
                 <FormLabel>Select file</FormLabel>
-                <Input placeholder="Enter Subject" size="lg" type="file" />
+                <Input
+                  size="lg"
+                  type="file"
+                  onChange={(e) => handleOnInputFileChange(e)}
+                />
               </FormControl>
             </Stack>
 
             <Button
-              mt={4}
-              colorScheme="blue"
+              onClick={handleOnSubmit}
               type="submit"
+              isLoading={isLoading}
+              loadingText="Uploading..."
+              variant="solid"
+              colorScheme="blue"
+              mt={4}
               w={{ base: "100%", sm: "70%", md: "400px" }}
             >
-              Submit
+              Upload
             </Button>
           </form>
         </Box>

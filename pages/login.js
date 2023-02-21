@@ -17,32 +17,35 @@ import { Fragment } from "react";
 import { userContext } from "../context/userContext";
 
 const Login = () => {
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
-  const {googleSignin, login} = useContext(userContext)
+  const { googleSignin, login } = useContext(userContext);
   const route = useRouter();
   const handleOnGoogleLogin = async () => {
     try {
       await googleSignin();
-      route.push("/")
+      route.push("/");
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
-  }
+  };
   const handleOnEmailAndPassLogin = async () => {
     try {
-      await login(email, password)
-      route.push("/")
+      const res = await login(email, password);
+      console.log(res);
+      route.push("/");
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
-  }
+  };
   return (
     <Fragment>
       <Link href="/">
-      <Button position="absolute" top={4} left={4} px={6} py={4} >Back</Button>
+        <Button position="absolute" top={4} left={4} px={6} py={4}>
+          Back
+        </Button>
       </Link>
 
       <Box

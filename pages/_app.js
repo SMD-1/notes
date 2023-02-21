@@ -6,7 +6,7 @@ function MyApp({ Component, pageProps }) {
   return (
     <ChakraProvider>
       <UserContextProvider>
-        <LoadingOverlay />
+        {/* <LoadingOverlay /> */}
         <Component {...pageProps} />
       </UserContextProvider>
     </ChakraProvider>
