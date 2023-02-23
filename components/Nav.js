@@ -15,8 +15,10 @@ import {
   useColorModeValue,
   Stack,
 } from "@chakra-ui/react";
+import { useContext } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { GrClose } from "react-icons/gr";
+import { userContext } from "../context/userContext";
 
 const Links = ["Home", "Upload", "Team"];
 
@@ -37,6 +39,7 @@ const NavLink = ({ children, endPoint }) => (
 
 export default function Nav() {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { logoutUser } = useContext(userContext);
 
   return (
     <>
@@ -92,7 +95,7 @@ export default function Nav() {
                 <MenuItem>Profile</MenuItem>
                 <MenuItem>Link 2</MenuItem>
                 <MenuDivider />
-                <MenuItem>Logout</MenuItem>
+                <MenuItem onClick={logoutUser}>Logout</MenuItem>
               </MenuList>
             </Menu>
           </Flex>
