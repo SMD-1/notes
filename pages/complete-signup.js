@@ -1,4 +1,4 @@
-import { Button, Container, Input } from "@chakra-ui/react";
+import { Box, Button, Container, Input } from "@chakra-ui/react";
 import axios from "axios";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -15,11 +15,11 @@ function CompleteSignUpPage() {
   const router = useRouter();
 
   useEffect(() => {
-    if (!FBUser) return;
-    setEmail(FBUser.email);
-    setFullName(FBUser?.displayName || "");
-    setPhotoURL(FBUser?.photoURL || "");
-    console.log(email, photoURL);
+    if (FBUser) {
+      setEmail(FBUser.email);
+      setFullName(FBUser?.displayName || "");
+      setPhotoURL(FBUser?.photoURL || "");
+    }
   }, [FBUser]);
 
   const handleOnSubmitClick = async () => {
@@ -33,34 +33,72 @@ function CompleteSignUpPage() {
       };
       const res = await axios.post("http://localhost:4001/users", payload);
       router.push("/feed");
-      console.log(res);
       //TODO: Toast
     } catch (err) {
       //TODO: Toast
     }
   };
-  if (!FBUser) return <h1>Loading...</h1>;
+  if (!FBUser) {
+    return (
+      <div>
+        <h1>Loading...</h1>
+      </div>
+    );
+  }
   return (
-    <Container maxW={"6xl"}>
-      <Input
-        id="username"
-        value={username}
-        placeholder="username"
-        onChange={(e) => setUsername(e.target.value)}
-      />
-      <Input
-        id="name"
-        placeholder="Full name"
-        value={fullName}
-        onChange={(e) => setFullName(e.target.value)}
-      />
-      <Input id="email" readOnly={true} disabled={true} value={email} />
-      {photoURL ? (
-        <Image src={photoURL} width={100} height={100} />
-      ) : (
-        <p>photo not available</p>
-      )}
-      <Button onClick={handleOnSubmitClick}>Submit</Button>
+    <Container
+      maxW={"3xl"}
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      minH="100vh"
+    >
+      <Box p={4}>
+        <Input
+          my={3}
+          id="username"
+          value={username}
+          placeholder="username"
+          onChange={(e) => setUsername(e.target.value)}
+        />
+        <Input
+          my={3}
+          id="name"
+          placeholder="Full name"
+          value={fullName}
+          onChange={(e) => setFullName(e.target.value)}
+        />
+        <Input
+          my={3}
+          id="email"
+          readOnly={true}
+          disabled={true}
+          value={email}
+        />
+        {photoURL ? (
+          <Image
+            src={photoURL}
+            alt={"profile photo"}
+            width={100}
+            height={100}
+            my={3}
+          />
+        ) : (
+          <Box as="p" margin={{ base: 0, lg: "12px auto" }}>
+            photo not available
+          </Box>
+        )}
+        <Button
+          w={{ base: "100%", lg: "50%" }}
+          display="flex"
+          margin={{ base: 0, lg: "0 auto" }}
+          placeItems="center"
+          colorScheme="blue"
+          onClick={handleOnSubmitClick}
+        >
+          Submit
+        </Button>
+      </Box>
     </Container>
   );
 }
