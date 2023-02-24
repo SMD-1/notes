@@ -1,6 +1,13 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { getAuth, signInWithPopup, signOut, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import {
+  getAuth,
+  signInWithPopup,
+  signOut,
+  GoogleAuthProvider,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: "AIzaSyA9BoQ11tKO0WJjaqrtIuf21S54T7oYP2U",
@@ -19,20 +26,20 @@ const googleProvider = new GoogleAuthProvider();
 const auth = getAuth(app);
 const registerWithEmailAndPassword = async (email, password) => {
   try {
-    return await createUserWithEmailAndPassword(auth, email, password)
+    return await createUserWithEmailAndPassword(auth, email, password);
   } catch (err) {
-    console.log(err)
-    alert(err.message)
+    console.log(err);
+    alert(err.message);
   }
-}
+};
 
 const loginWithEmailAndPassword = async (email, password) => {
   try {
-    return await signInWithEmailAndPassword(auth, email, password)
+    return await signInWithEmailAndPassword(auth, email, password);
   } catch (err) {
-    console.log(err)
+    console.log(err);
   }
-}
+};
 
 const signInWithGoogle = async () => {
   try {
@@ -44,13 +51,21 @@ const signInWithGoogle = async () => {
   }
 };
 
-const logout= async () => {
+const logout = async () => {
   try {
-    await signOut();
+    await signOut(auth);
   } catch (err) {
     console.log(err);
   }
 };
-export { app, signInWithGoogle, logout, auth, registerWithEmailAndPassword, loginWithEmailAndPassword };
+export {
+  app,
+  signInWithGoogle,
+  logout,
+  auth,
+  registerWithEmailAndPassword,
+  loginWithEmailAndPassword,
+};
+
 // export const auth = getAuth();
 // const analytics = getAnalytics(app);

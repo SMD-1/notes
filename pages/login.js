@@ -35,7 +35,9 @@ const Login = () => {
     try {
       const res = await login(email, password);
       console.log(res);
-      route.push("/");
+      if (res?.email) {
+        route.push("/feed");
+      }
     } catch (err) {
       console.log(err);
     }
