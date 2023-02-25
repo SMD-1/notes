@@ -19,12 +19,15 @@ export const userContext = createContext({
 
 const UserContextProvider = ({ children }) => {
   const [user, loading, error] = useAuthState(auth);
-  console.log(user, loading, error);
+  // console.log(user, loading, error);
   const [DBUser, setDBUser] = useState(null);
   const router = useRouter();
   useEffect(() => {
     if (loading) return;
-    if (!user) return router.push("/signup");
+    if (!user) {
+      router.push("/signup");
+      return;
+    }
     const fetchUserFromDB = async () => {
       try {
         const res = await axios.post(
@@ -38,7 +41,7 @@ const UserContextProvider = ({ children }) => {
       }
     };
     fetchUserFromDB();
-  }, [user]);
+  }, [user, loading]);
 
   // const [user, setUser] = useState({ username: "danIsPro" });
   const register = async (email, password) => {
@@ -76,7 +79,7 @@ const UserContextProvider = ({ children }) => {
     } catch (err) {
       console.log(err);
     }
-    console.log("Logout");
+    // console.log("Logout");
   };
 
   return (
