@@ -67,16 +67,10 @@ export default function Home() {
                   </Button>
                 </Link>
                 <Link href="/signup">
-                  <Button
-                    colorScheme={"green"}
-                    variant="outline"
-                    ml={6}
-                    px={8}
-                  >
+                  <Button colorScheme={"green"} variant="outline" ml={6} px={8}>
                     Signup
                   </Button>
                 </Link>
-                
               </HStack>
             </Stack>
           </Container>
