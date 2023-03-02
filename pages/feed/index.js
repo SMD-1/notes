@@ -1,8 +1,8 @@
 import { Box, Container, Link, List } from "@chakra-ui/react";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import Nav from "../components/Nav";
-import NotesList from "../components/NotesList";
+import Nav from "../../components/Nav";
+import NotesList from "../../components/NotesList";
 
 const Feed = () => {
   const [documents, setDocuments] = useState([]);
