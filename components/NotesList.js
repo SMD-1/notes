@@ -1,7 +1,6 @@
-import { Box, Flex, Link, ListItem } from "@chakra-ui/react";
+import { Box, Flex, IconButton, Link, ListItem } from "@chakra-ui/react";
 import { BsFileEarmarkPdfFill } from "react-icons/bs";
 import { FiShare2 } from "react-icons/fi";
-import { useRouter } from "next/router";
 // takes file size in bytes and returns size in MB or KB
 const getSize = (size) => {
   const MEGABYTE = 1_000 * 1_000;
@@ -11,7 +10,20 @@ const getSize = (size) => {
     : `${(size / 1000).toFixed(2)} KB`;
 };
 const NotesList = ({ documents }) => {
-  const router = useRouter();
+  const share = async (id) => {
+    const url = `${window.location.origin}${window.location.pathname}/${id}`;
+    console.log(url);
+    try {
+      if (navigator.share) {
+        await navigator.share({
+          text: "I have found this awesome recipe❤️, You should also try this",
+          url: url,
+        });
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <Box display="flex" justifyContent="center" flexDir="column" mb={4}>
       {documents.map((item, index) => {
@@ -25,7 +37,7 @@ const NotesList = ({ documents }) => {
             cursor="pointer"
             border="2px solid rgba(0, 0, 0, 0.1)"
           >
-            <Flex gap={3} justifyContent="space-between">
+            <Flex gap={3} justifyContent="space-between" alignItems="center">
               <Link
                 target="_blank"
                 href={`/feed/${item._id}`}
@@ -40,15 +52,9 @@ const NotesList = ({ documents }) => {
                   </Flex>
                 </Flex>
               </Link>
-              <Flex
-                justifyContent="center"
-                alignItems="center"
-                cursor="pointer"
-                mx={1}
-                px={2}
-              >
+              <IconButton onClick={() => share(item._id)}>
                 <FiShare2 size="1.5rem" />
-              </Flex>
+              </IconButton>
             </Flex>
           </ListItem>
         );
