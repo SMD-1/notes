@@ -36,7 +36,7 @@ const Upload = () => {
       formData.append("subject", subRef.current.value);
       formData.append("noteFile", inputFile);
 
-      const res = await axios.post("http://localhost:4001/notes", formData);
+      const res = await axios.post("https://notes.danjs.tech/notes/", formData);
       console.log(res);
       setIsLoading(false);
     } catch (err) {

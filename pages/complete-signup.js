@@ -31,7 +31,7 @@ function CompleteSignUpPage() {
         photoURL,
         googleUID: FBUser.uid,
       };
-      const res = await axios.post("http://localhost:4001/users", payload);
+      const res = await axios.post("https://notes.danjs.tech/users", payload);
       router.push("/feed");
       //TODO: Toast
     } catch (err) {

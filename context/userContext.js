@@ -31,7 +31,7 @@ const UserContextProvider = ({ children }) => {
     const fetchUserFromDB = async () => {
       try {
         const res = await axios.post(
-          "http://localhost:4001/users/get-user-info",
+          "https://notes.danjs.tech/users/get-user-info",
           { email: user.email }
         );
         console.log("user from DB", res.data);

@@ -17,7 +17,9 @@ function ViewFile() {
     const { fileId } = router.query;
     const fetchFile = async () => {
       try {
-        const { data } = await axios("http://localhost:4001/notes/" + fileId);
+        const { data } = await axios(
+          "https://notes.danjs.tech/notes/" + fileId
+        );
         setFileData(data.data);
       } catch (err) {
         console.log(err);

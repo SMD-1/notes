@@ -8,7 +8,7 @@ const Feed = () => {
   const [documents, setDocuments] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
-      const res = await axios.get("http://localhost:4001/notes");
+      const res = await axios.get("https://notes.danjs.tech/notes/");
       setDocuments(res.data.data);
       console.log(res.data.data);
     };
