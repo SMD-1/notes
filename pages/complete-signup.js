@@ -32,7 +32,7 @@ function CompleteSignUpPage() {
         googleUID: FBUser.uid,
       };
       const res = await axios.post("https://notes.danjs.tech/users", payload);
-      router.push("/feed");
+      router.push("/notes");
       //TODO: Toast
     } catch (err) {
       //TODO: Toast

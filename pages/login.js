@@ -36,7 +36,7 @@ const Login = () => {
       const res = await login(email, password);
       console.log(res);
       if (res?.email) {
-        route.push("/feed");
+        route.push("/notes");
       }
     } catch (err) {
       console.log(err);

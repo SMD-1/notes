@@ -18,6 +18,7 @@ import {
 import { useContext } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { GrClose } from "react-icons/gr";
+import { FaUserCircle } from "react-icons/fa";
 import { userContext } from "../context/userContext";
 import Link from "next/link";
 
@@ -34,6 +35,7 @@ const NavLink = ({ children, endPoint }) => (
 export default function Nav() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { logoutUser, user } = useContext(userContext);
+  console.log("nav", user);
 
   return (
     <>
@@ -79,12 +81,15 @@ export default function Nav() {
                 minW={0}
                 mr={2}
               >
-                <Avatar
-                  size={"md"}
-                  src={
-                    "https://images.unsplash.com/photo-1493666438817-866a91353ca9?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=b616b2c5b373a80ffc9636ba24f7a4a9"
-                  }
-                />
+                {user && user.data.user.photoURL ? (
+                  <Avatar size={"md"} src={user.data.user.photoURL} />
+                ) : (
+                  <Avatar
+                    size="sm"
+                    src="https://ik.imagekit.io/1place/Notes/user_nWSGLM3AGj.png?ik-sdk-version=javascript-1.4.3&updatedAt=1677957308998"
+                  />
+                  // <FaUserCircle size="2.5rem" />
+                )}
               </MenuButton>
               {user && user.data.user.username}
               <MenuList color="#666666">

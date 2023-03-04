@@ -40,7 +40,7 @@ const NotesList = ({ documents }) => {
             <Flex gap={3} justifyContent="space-between" alignItems="center">
               <Link
                 target="_blank"
-                href={`/feed/${item._id}`}
+                href={`/notes/${item._id}`}
                 color="blue.600"
                 w="100%"
               >
