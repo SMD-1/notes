@@ -34,7 +34,6 @@ const UserContextProvider = ({ children }) => {
           "https://notes.danjs.tech/users/get-user-info",
           { email: user.email }
         );
-        console.log("user from DB", res.data);
         setDBUser(res.data);
       } catch (err) {
         router.push("/complete-signup");

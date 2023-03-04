@@ -39,11 +39,11 @@ const NavLink = ({ children, endPoint }) => (
 
 export default function Nav() {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { logoutUser } = useContext(userContext);
+  const { logoutUser, user } = useContext(userContext);
 
   return (
     <>
-      <Box bg={useColorModeValue("transparent", "gray.900")} px="2rem">
+      <Box bg={useColorModeValue("transparent", "blue.900")} px="2rem">
         <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
           <IconButton
             size={"md"}
@@ -83,6 +83,7 @@ export default function Nav() {
                 variant={"link"}
                 cursor={"pointer"}
                 minW={0}
+                mr={2}
               >
                 <Avatar
                   size={"md"}
@@ -91,6 +92,7 @@ export default function Nav() {
                   }
                 />
               </MenuButton>
+              {user && user.data.user.username}
               <MenuList color="#666666">
                 <MenuItem>Profile</MenuItem>
                 <MenuItem>Link 2</MenuItem>

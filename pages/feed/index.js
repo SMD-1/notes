@@ -1,4 +1,4 @@
-import { Box, Container, Link, List } from "@chakra-ui/react";
+import { Box, Container, List, Skeleton, Stack } from "@chakra-ui/react";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Nav from "../../components/Nav";
@@ -6,10 +6,12 @@ import NotesList from "../../components/NotesList";
 
 const Feed = () => {
   const [documents, setDocuments] = useState([]);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     const fetchData = async () => {
       const res = await axios.get("https://notes.danjs.tech/notes/");
       setDocuments(res.data.data);
+      setLoading(false);
       console.log(res.data.data);
     };
     fetchData();
@@ -21,9 +23,21 @@ const Feed = () => {
       </Box>
       <Box pt="70px">
         <Container maxW={"4xl"}>
-          <List>
-            <NotesList documents={documents} />
-          </List>
+          {loading ? (
+            <Stack>
+              <Skeleton height="60px" mt={3} rounded="md" />
+              <Skeleton height="60px" mt={3} rounded="md" />
+              <Skeleton height="60px" mt={3} rounded="md" />
+              <Skeleton height="60px" mt={3} rounded="md" />
+              <Skeleton height="60px" mt={3} rounded="md" />
+              <Skeleton height="60px" mt={3} rounded="md" />
+              <Skeleton height="60px" mt={3} rounded="md" />
+            </Stack>
+          ) : (
+            <List>
+              <NotesList documents={documents} />
+            </List>
+          )}
         </Container>
       </Box>
     </Box>
