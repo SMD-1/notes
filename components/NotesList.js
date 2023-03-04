@@ -52,7 +52,7 @@ const NotesList = ({ documents }) => {
                   </Flex>
                 </Flex>
               </Link>
-              <IconButton onClick={() => share(item._id)}>
+              <IconButton onClick={() => share(item._id)} zIndex="-1">
                 <FiShare2 size="1.5rem" />
               </IconButton>
             </Flex>

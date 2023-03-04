@@ -25,13 +25,13 @@ const Feed = () => {
         <Container maxW={"4xl"}>
           {loading ? (
             <Stack>
-              <Skeleton height="60px" mt={3} rounded="md" />
-              <Skeleton height="60px" mt={3} rounded="md" />
-              <Skeleton height="60px" mt={3} rounded="md" />
-              <Skeleton height="60px" mt={3} rounded="md" />
-              <Skeleton height="60px" mt={3} rounded="md" />
-              <Skeleton height="60px" mt={3} rounded="md" />
-              <Skeleton height="60px" mt={3} rounded="md" />
+              <Skeleton height="60px" mt={4} rounded="md" />
+              <Skeleton height="60px" mt={4} rounded="md" />
+              <Skeleton height="60px" mt={4} rounded="md" />
+              <Skeleton height="60px" mt={4} rounded="md" />
+              <Skeleton height="60px" mt={4} rounded="md" />
+              <Skeleton height="60px" mt={4} rounded="md" />
+              <Skeleton height="60px" mt={4} rounded="md" />
             </Stack>
           ) : (
             <List>

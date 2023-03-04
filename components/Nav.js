@@ -3,7 +3,7 @@ import {
   Flex,
   Avatar,
   HStack,
-  Link,
+  Link as CLink,
   IconButton,
   Button,
   Menu,
@@ -19,21 +19,15 @@ import { useContext } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { GrClose } from "react-icons/gr";
 import { userContext } from "../context/userContext";
+import Link from "next/link";
 
-const Links = ["Home", "Upload", "Team"];
+const Links = ["Home", "Upload", "Notes"];
 
 const NavLink = ({ children, endPoint }) => (
-  <Link
-    px={2}
-    py={1}
-    rounded={"md"}
-    _hover={{
-      textDecoration: "none",
-      bg: useColorModeValue("gray.200", "gray.700"),
-    }}
-    href={endPoint == "upload" ? `/${endPoint}` : "/"}
-  >
-    {children}
+  <Link href={endPoint == "home" ? "/" : `/${endPoint}`}>
+    <Button variant="ghost" px={4} _hover={{ background: "teal.100" }}>
+      {children}
+    </Button>
   </Link>
 );
 
@@ -43,7 +37,7 @@ export default function Nav() {
 
   return (
     <>
-      <Box bg={useColorModeValue("transparent", "blue.900")} px="2rem">
+      <Box bg={useColorModeValue("gray.100", "blue.900")} px="2rem">
         <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
           <IconButton
             size={"md"}
