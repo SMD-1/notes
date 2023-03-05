@@ -9,10 +9,14 @@ import {
 } from "@chakra-ui/react";
 import Head from "next/head";
 import Nav from "../components/Nav";
-import React from "react";
+import React, { useContext } from "react";
 import Link from "next/link";
+import { userContext } from "../context/userContext";
+import { BsCaretRightFill } from "react-icons/bs";
 
 export default function Home() {
+  const { user } = useContext(userContext);
+  console.log("home page", user);
   return (
     <div>
       <Head>
@@ -47,31 +51,53 @@ export default function Home() {
                 Assignment Dedo: The app that connects students, sharing
                 knowledge and resources for easier success.
               </Text>
-              <HStack
-                direction={"column"}
-                spacing={3}
-                align={"center"}
-                alignSelf={"center"}
-                position={"relative"}
-              >
-                <Link href="/login">
+              {user ? (
+                <Link href="/notes">
                   <Button
                     colorScheme={"green"}
+                    rightIcon={<BsCaretRightFill color="white" />}
                     bg={"green.400"}
-                    px={8}
+                    p={4}
                     _hover={{
                       bg: "green.500",
                     }}
+                    fontSize="xl"
                   >
-                    Login
+                    All available notes
                   </Button>
                 </Link>
-                <Link href="/signup">
-                  <Button colorScheme={"green"} variant="outline" ml={6} px={8}>
-                    Signup
-                  </Button>
-                </Link>
-              </HStack>
+              ) : (
+                <HStack
+                  direction={"column"}
+                  spacing={3}
+                  align={"center"}
+                  alignSelf={"center"}
+                  position={"relative"}
+                >
+                  <Link href="/login">
+                    <Button
+                      colorScheme={"green"}
+                      bg={"green.400"}
+                      px={8}
+                      _hover={{
+                        bg: "green.500",
+                      }}
+                    >
+                      Login
+                    </Button>
+                  </Link>
+                  <Link href="/signup">
+                    <Button
+                      colorScheme={"green"}
+                      variant="outline"
+                      ml={6}
+                      px={8}
+                    >
+                      Signup
+                    </Button>
+                  </Link>
+                </HStack>
+              )}
             </Stack>
           </Container>
         </Box>
