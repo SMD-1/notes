@@ -15,6 +15,7 @@ import Link from "next/link";
 import { FcGoogle } from "react-icons/fc";
 import { Fragment } from "react";
 import { userContext } from "../context/userContext";
+import { AiFillHome } from "react-icons/ai";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -45,8 +46,14 @@ const Login = () => {
   return (
     <Fragment>
       <Link href="/">
-        <Button position="absolute" top={4} left={4} px={6} py={4}>
-          Back
+        <Button
+          position="absolute"
+          leftIcon={<AiFillHome />}
+          top={4}
+          left={4}
+          p={4}
+        >
+          Home
         </Button>
       </Link>
 

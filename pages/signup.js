@@ -14,35 +14,43 @@ import Link from "next/link";
 import { FcGoogle } from "react-icons/fc";
 import { userContext } from "../context/userContext";
 import { useRouter } from "next/router";
+import { AiFillHome } from "react-icons/ai";
 
 const Signup = () => {
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
-  const {googleSignin, register} = useContext(userContext)
+  const { googleSignin, register } = useContext(userContext);
   const route = useRouter();
   const handleOnGoogleLogin = async () => {
     try {
       await googleSignin();
-      route.push("/")
+      route.push("/");
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
-  }
+  };
   const registerHandler = async () => {
     try {
       await register(email, password);
-      route.push("/")
+      route.push("/");
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
-
-  }
+  };
   return (
     <>
       <Link href="/">
-        <Button position="absolute" top={4} left={4} px={6} py={4} >Back</Button>
+        <Button
+          position="absolute"
+          leftIcon={<AiFillHome />}
+          top={4}
+          left={4}
+          p={4}
+        >
+          Home
+        </Button>
       </Link>
       <Box
         w="100%"

@@ -9,6 +9,8 @@ import {
 } from "@chakra-ui/react";
 import axios from "axios";
 import Link from "next/link";
+import Image from "next/image";
+import { AiFillHome } from "react-icons/ai";
 import { useRef, useState } from "react";
 
 const Upload = () => {
@@ -48,8 +50,14 @@ const Upload = () => {
   return (
     <>
       <Link href="/">
-        <Button position="absolute" top={4} left={4} px={6} py={4}>
-          Back
+        <Button
+          position="absolute"
+          leftIcon={<AiFillHome />}
+          top={4}
+          left={4}
+          p={4}
+        >
+          Home
         </Button>
       </Link>
       <Box
@@ -59,17 +67,16 @@ const Upload = () => {
         alignItems="center"
         justifyContent="center"
         minH="100vh"
-        p={8}
+        p={{ base: "6", md: "8" }}
         gap={4}
       >
         <Box
           display={{ base: "none", lg: "flex" }}
-          border="1px solid #000"
-          w={{ base: "100%", lg: "50%" }}
+          w={{ base: "100%", md: "50%" }}
           justifyContent="center"
           alignItems="center"
         >
-          <Heading>Image will be here </Heading>
+          <Image src="/Upload.gif" width={500} height={500} alt="upload gif" />
         </Box>
         <Box
           display="flex"
