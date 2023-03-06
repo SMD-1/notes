@@ -107,7 +107,9 @@ export default function Nav() {
           <Box pb={4} display={{ md: "none" }}>
             <Stack as={"nav"} spacing={4}>
               {Links.map((link) => (
-                <NavLink key={link}>{link}</NavLink>
+                <NavLink key={link} endPoint={link.toLocaleLowerCase()}>
+                  {link}
+                </NavLink>
               ))}
             </Stack>
           </Box>
