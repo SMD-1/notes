@@ -8,12 +8,14 @@ import {
 } from "../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useRouter } from "next/router";
-import axios from "axios";
+import axiosInstance from "../utils/axios";
 
 export const userContext = createContext({
   user: null,
   FBUser: null,
   googleSignin: null,
+  logoutUser: null,
+  updateUser: null,
   isLoading: true,
 });
 
@@ -28,20 +30,19 @@ const UserContextProvider = ({ children }) => {
       router.push("/signup");
       return;
     }
-    const fetchUserFromDB = async () => {
-      try {
-        const res = await axios.post(
-          "https://notes.danjs.tech/users/get-user-info",
-          { email: user.email }
-        );
-        setDBUser(res.data);
-      } catch (err) {
-        router.push("/complete-signup");
-      }
-    };
+
     fetchUserFromDB();
   }, [user, loading]);
-
+  const fetchUserFromDB = async () => {
+    try {
+      const res = await axiosInstance.post("/users/get-user-info", {
+        email: user.email,
+      });
+      setDBUser(res.data);
+    } catch (err) {
+      router.push("/complete-signup");
+    }
+  };
   // const [user, setUser] = useState({ username: "danIsPro" });
   const register = async (email, password) => {
     try {
@@ -81,6 +82,15 @@ const UserContextProvider = ({ children }) => {
     // console.log("Logout");
   };
 
+  const updateUser = async (id, fullName, username) => {
+    try {
+      await axiosInstance.patch(`/users/${id}`, { fullName, username });
+      await fetchUserFromDB();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <userContext.Provider
       value={{
@@ -91,6 +101,7 @@ const UserContextProvider = ({ children }) => {
         register,
         login,
         logoutUser,
+        updateUser,
       }}
     >
       {children}
@@ -100,5 +111,6 @@ const UserContextProvider = ({ children }) => {
 
 export default UserContextProvider;
 
-// comp -> context -> firebase.js -> actual stuff
+// comp -> context |-> firebase.js -> actual stuff (FB SDK)
+//                 |-> MongoDB
 // user <- user state <-user obj

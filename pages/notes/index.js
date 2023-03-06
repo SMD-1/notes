@@ -1,15 +1,15 @@
 import { Box, Container, List, Skeleton, Stack } from "@chakra-ui/react";
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Nav from "../../components/Nav";
 import NotesList from "../../components/NotesList";
+import axiosInstance from "../../utils/axios";
 
 const Feed = () => {
   const [documents, setDocuments] = useState([]);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     const fetchData = async () => {
-      const res = await axios.get("https://notes.danjs.tech/notes/");
+      const res = await axiosInstance.get("/notes");
       setDocuments(res.data.data);
       setLoading(false);
       console.log(res.data.data);

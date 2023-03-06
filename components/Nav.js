@@ -8,22 +8,18 @@ import {
   Button,
   Menu,
   MenuButton,
-  MenuList,
-  MenuItem,
-  MenuDivider,
   useDisclosure,
   useColorModeValue,
   Stack,
 } from "@chakra-ui/react";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { GrClose } from "react-icons/gr";
-import { FaUserCircle } from "react-icons/fa";
 import { userContext } from "../context/userContext";
 import Link from "next/link";
+import ProfileEditor from "./modals/ProfileEditor";
 
 const Links = ["Home", "Upload", "Notes"];
-
 const NavLink = ({ children, endPoint }) => (
   <Link href={endPoint == "home" ? "/" : `/${endPoint}`}>
     <Button variant="ghost" px={4} _hover={{ background: "teal.100" }}>
@@ -34,8 +30,12 @@ const NavLink = ({ children, endPoint }) => (
 
 export default function Nav() {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { logoutUser, user } = useContext(userContext);
-  console.log("nav", user);
+  const {
+    isOpen: isModalOpen,
+    onOpen: onModalOpen,
+    onClose: onModalClose,
+  } = useDisclosure();
+  const { user } = useContext(userContext);
 
   return (
     <>
@@ -80,6 +80,7 @@ export default function Nav() {
                 cursor={"pointer"}
                 minW={0}
                 mr={2}
+                onClick={isModalOpen ? onModalClose : onModalOpen}
               >
                 {user && user.data.user.photoURL ? (
                   <Avatar size={"md"} src={user.data.user.photoURL} />
@@ -88,19 +89,19 @@ export default function Nav() {
                     size="sm"
                     src="https://ik.imagekit.io/1place/Notes/user_nWSGLM3AGj.png?ik-sdk-version=javascript-1.4.3&updatedAt=1677957308998"
                   />
-                  // <FaUserCircle size="2.5rem" />
                 )}
               </MenuButton>
-              {user && user.data.user.username}
-              <MenuList color="#666666">
-                <MenuItem>Profile</MenuItem>
-                <MenuItem>Link 2</MenuItem>
-                <MenuDivider />
-                <MenuItem onClick={logoutUser}>Logout</MenuItem>
-              </MenuList>
             </Menu>
           </Flex>
         </Flex>
+
+        {isModalOpen && (
+          <ProfileEditor
+            isModalOpen={isModalOpen}
+            onModalClose={onModalClose}
+            user={user}
+          />
+        )}
 
         {isOpen ? (
           <Box pb={4} display={{ md: "none" }}>

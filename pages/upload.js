@@ -76,7 +76,13 @@ const Upload = () => {
           justifyContent="center"
           alignItems="center"
         >
-          <Image src="/Upload.gif" width={500} height={500} alt="upload gif" />
+          <Image
+            src="/Upload.gif"
+            width={500}
+            height={500}
+            alt="upload gif"
+            draggable="false"
+          />
         </Box>
         <Box
           display="flex"
