@@ -18,6 +18,7 @@ import { GrClose } from "react-icons/gr";
 import { userContext } from "../context/userContext";
 import Link from "next/link";
 import ProfileEditor from "./modals/ProfileEditor";
+import ThemeToggler from "./ThemeToggler";
 
 const Links = ["Home", "Upload", "Notes"];
 const NavLink = ({ children, endPoint }) => (
@@ -91,6 +92,7 @@ export default function Nav() {
                   />
                 )}
               </MenuButton>
+              <ThemeToggler />
             </Menu>
           </Flex>
         </Flex>
