@@ -1,5 +1,5 @@
 import { Box, Text } from "@chakra-ui/react";
-import axios from "axios";
+import axiosInstance from "../../utils/axios";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 
@@ -17,9 +17,7 @@ function ViewFile() {
     const { fileId } = router.query;
     const fetchFile = async () => {
       try {
-        const { data } = await axios(
-          "https://notes.danjs.tech/notes/" + fileId
-        );
+        const { data } = await axiosInstance.get("/notes/" + fileId);
         setFileData(data.data);
       } catch (err) {
         console.log(err);

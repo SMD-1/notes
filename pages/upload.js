@@ -7,7 +7,7 @@ import {
   Input,
   Stack,
 } from "@chakra-ui/react";
-import axios from "axios";
+import axiosInstance from "../utils/axios";
 import Link from "next/link";
 import Image from "next/image";
 import { AiFillHome } from "react-icons/ai";
@@ -41,7 +41,7 @@ const Upload = () => {
       formData.append("subject", subRef.current.value);
       formData.append("noteFile", inputFile);
 
-      const res = await axios.post("https://notes.danjs.tech/notes/", formData);
+      const res = await axiosInstance.post("/notes/", formData);
       setIsLoading(false);
     } catch (err) {
       console.log("err:", err);

@@ -1,5 +1,5 @@
 import { Box, Button, Container, Input } from "@chakra-ui/react";
-import axios from "axios";
+import axiosInstance from "../utils/axios";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { useContext, useEffect, useState } from "react";
@@ -31,7 +31,7 @@ function CompleteSignUpPage() {
         photoURL,
         googleUID: FBUser.uid,
       };
-      const res = await axios.post("https://notes.danjs.tech/users", payload);
+      const res = await axiosInstance.post("/users", payload);
       router.push("/notes");
       //TODO: Toast
     } catch (err) {
