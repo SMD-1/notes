@@ -11,7 +11,8 @@ import axios from "axios";
 import Link from "next/link";
 import Image from "next/image";
 import { AiFillHome } from "react-icons/ai";
-import { useRef, useState } from "react";
+import { useRef, useState, useContext } from "react";
+import { userContext } from "../context/userContext";
 
 const Upload = () => {
   const titleRef = useRef();
@@ -28,18 +29,19 @@ const Upload = () => {
     setInputFile(file);
     console.log(file);
   };
+  const { user } = useContext(userContext);
   const handleOnSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
     try {
       const formData = new FormData();
       formData.append("title", titleRef.current.value);
+      formData.append("user", user.data.user._id);
       formData.append("desc", descRef.current.value);
       formData.append("subject", subRef.current.value);
       formData.append("noteFile", inputFile);
 
       const res = await axios.post("https://notes.danjs.tech/notes/", formData);
-      console.log(res);
       setIsLoading(false);
     } catch (err) {
       console.log("err:", err);

@@ -62,7 +62,7 @@ function ProfileEditor({ user, isModalOpen, onModalClose }) {
                 {user && user.data.user.fullName}
               </Text>
               <Text fontWeight="400" fontSize="lg">
-                {user && user.data.user.username}
+                @{user && user.data.user.username}
               </Text>
 
               <FormControl isRequired>
@@ -110,7 +110,7 @@ function ProfileEditor({ user, isModalOpen, onModalClose }) {
                 {user && user.data.user.fullName}
               </Text>
               <Text fontWeight="400" fontSize="lg">
-                {user && user.data.user.username}
+                @{user && user.data.user.username}
               </Text>
             </ModalBody>
             <ModalFooter justifyContent="space-between" px={6}>

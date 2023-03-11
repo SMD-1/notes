@@ -16,7 +16,6 @@ import { BsCaretRightFill } from "react-icons/bs";
 
 export default function Home() {
   const { user } = useContext(userContext);
-  console.log("home page", user);
   return (
     <div>
       <Head>
