@@ -150,7 +150,6 @@ const Signup = () => {
           border="2px solid rgba(255, 255, 255, 0.1)"
           colorScheme="gray"
           variant="solid"
-          color="black"
           onClick={handleOnGoogleLogin}
         >
           Sign in with Google

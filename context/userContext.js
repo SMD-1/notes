@@ -65,7 +65,9 @@ const UserContextProvider = ({ children }) => {
     try {
       const { user } = await signInWithGoogle();
       // console.log(user);
-      router.push("/complete-signup");
+      if (!DBUser) {
+        router.push("/complete-signup");
+      }
       return user;
     } catch (err) {
       console.log(err);

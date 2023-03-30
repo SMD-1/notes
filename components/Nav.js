@@ -23,7 +23,11 @@ import ThemeToggler from "./ThemeToggler";
 const Links = ["Home", "Upload", "Notes"];
 const NavLink = ({ children, endPoint }) => (
   <Link href={endPoint == "home" ? "/" : `/${endPoint}`}>
-    <Button variant="ghost" px={4} _hover={{ background: "teal.100" }}>
+    <Button
+      variant="ghost"
+      px={4}
+      _hover={{ background: useColorModeValue("gray.300", "blue.500") }}
+    >
       {children}
     </Button>
   </Link>
@@ -84,12 +88,9 @@ export default function Nav() {
                 onClick={isModalOpen ? onModalClose : onModalOpen}
               >
                 {user && user.data.user.photoURL ? (
-                  <Avatar size={"md"} src={user.data.user.photoURL} />
+                  <Avatar size="md" src={user.data.user.photoURL} />
                 ) : (
-                  <Avatar
-                    size="sm"
-                    src="https://ik.imagekit.io/1place/Notes/user_nWSGLM3AGj.png?ik-sdk-version=javascript-1.4.3&updatedAt=1677957308998"
-                  />
+                  <Avatar size="md" />
                 )}
               </MenuButton>
               <ThemeToggler />
