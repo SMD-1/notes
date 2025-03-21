@@ -43,81 +43,75 @@ export default function Nav() {
   const { user } = useContext(userContext);
 
   return (
-    <>
-      <Box bg={useColorModeValue("gray.100", "blue.900")} px="2rem">
-        <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
-          <IconButton
-            size={"md"}
-            icon={isOpen ? <GrClose /> : <GiHamburgerMenu />}
-            aria-label={"Open Menu"}
-            display={{ base: "flex", md: "none" }}
-            justifyContent="center"
-            alignItems="center"
-            onClick={isOpen ? onClose : onOpen}
-          />
-          <HStack spacing={8} alignItems={"center"}>
-            <Box
-              fontWeight="bold"
-              fontSize="18px"
-              mr={{ base: "0", md: "20px" }}
-            >
-              {"<Assignment />"}
-            </Box>
-            <HStack
-              as={"nav"}
-              spacing={4}
-              color="#666666"
-              display={{ base: "none", md: "flex" }}
-            >
-              {Links.map((link) => (
-                <NavLink key={link} endPoint={link.toLowerCase()}>
-                  {link}
-                </NavLink>
-              ))}
-            </HStack>
-          </HStack>
-          <Flex alignItems={"center"}>
-            <Menu>
-              <MenuButton
-                as={Button}
-                rounded={"full"}
-                variant={"link"}
-                cursor={"pointer"}
-                minW={0}
-                mr={2}
-                onClick={isModalOpen ? onModalClose : onModalOpen}
-              >
-                {user && user.data.user.photoURL ? (
-                  <Avatar size="md" src={user.data.user.photoURL} />
-                ) : (
-                  <Avatar size="md" />
-                )}
-              </MenuButton>
-              <ThemeToggler />
-            </Menu>
-          </Flex>
-        </Flex>
-
-        {isModalOpen && (
-          <ProfileEditor
-            isModalOpen={isModalOpen}
-            onModalClose={onModalClose}
-            user={user}
-          />
-        )}
-
-        {isOpen ? (
-          <Box pb={4} display={{ md: "none" }}>
-            <Stack as={"nav"} spacing={4}>
-              {Links.map((link) => (
-                <NavLink key={link} endPoint={link.toLocaleLowerCase()}>
-                  {link}
-                </NavLink>
-              ))}
-            </Stack>
+    <Box bg={useColorModeValue("gray.100", "blue.900")} px="2rem">
+      <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
+        <IconButton
+          size={"md"}
+          icon={isOpen ? <GrClose /> : <GiHamburgerMenu />}
+          aria-label={"Open Menu"}
+          display={{ base: "flex", md: "none" }}
+          justifyContent="center"
+          alignItems="center"
+          onClick={isOpen ? onClose : onOpen}
+        />
+        <HStack spacing={8} alignItems={"center"}>
+          <Box fontWeight="bold" fontSize="18px" mr={{ base: "0", md: "20px" }}>
+            {"<Assignment />"}
           </Box>
-        ) : null}
-      </Box>
-    </>
+          <HStack
+            as={"nav"}
+            spacing={4}
+            color="#666666"
+            display={{ base: "none", md: "flex" }}
+          >
+            {Links.map((link) => (
+              <NavLink key={link} endPoint={link.toLowerCase()}>
+                {link}
+              </NavLink>
+            ))}
+          </HStack>
+        </HStack>
+        <Flex alignItems={"center"}>
+          <Menu>
+            <MenuButton
+              as={Button}
+              rounded={"full"}
+              variant={"link"}
+              cursor={"pointer"}
+              minW={0}
+              mr={2}
+              onClick={isModalOpen ? onModalClose : onModalOpen}
+            >
+              {user?.data?.user?.photoURL ? (
+                <Avatar size="md" src={user.data.user.photoURL} />
+              ) : (
+                ``
+              )}
+            </MenuButton>
+            <ThemeToggler />
+          </Menu>
+        </Flex>
+      </Flex>
+
+      {isModalOpen && (
+        <ProfileEditor
+          isModalOpen={isModalOpen}
+          onModalClose={onModalClose}
+          user={user}
+        />
+      )}
+
+      {isOpen ? (
+        <Box pb={4} display={{ md: "none" }}>
+          <Stack as={"nav"} spacing={4}>
+            {Links.map((link) => (
+              <NavLink key={link} endPoint={link.toLocaleLowerCase()}>
+                {link}
+              </NavLink>
+            ))}
+          </Stack>
+        </Box>
+      ) : null}
+    </Box>
   );
 }
