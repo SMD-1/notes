@@ -41,6 +41,7 @@ export default function Nav() {
     onClose: onModalClose,
   } = useDisclosure();
   const { user } = useContext(userContext);
+  const avatarSrc = user?.data?.user?.photoURL || null;
 
   return (
     <Box bg={useColorModeValue("gray.100", "blue.900")} px="2rem">
@@ -82,11 +83,11 @@ export default function Nav() {
               mr={2}
               onClick={isModalOpen ? onModalClose : onModalOpen}
             >
-              {user?.data?.user?.photoURL ? (
-                <Avatar size="md" src={user.data.user.photoURL} />
-              ) : (
-                ``
-              )}
+              {avatarSrc ? (
+                <Avatar size="md" src={avatarSrc} />
+              ) : user ? (
+                <Avatar size="md" />
+              ) : null}
             </MenuButton>
             <ThemeToggler />
           </Menu>
