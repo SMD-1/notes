@@ -28,6 +28,11 @@ const NotesList = ({ documents }) => {
 
   return (
     <Box display="flex" justifyContent="center" flexDir="column" mb={4}>
+      {documents.length === 0 && (
+        <Text fontSize="3xl" fontWeight="bold" opacity="0.5" textAlign="center">
+          There are no notes available
+        </Text>
+      )}
       {documents.map((item, index) => {
         return (
           <ListItem

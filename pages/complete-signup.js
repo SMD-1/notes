@@ -32,9 +32,10 @@ function CompleteSignUpPage() {
         googleUID: FBUser.uid,
       };
       const res = await axiosInstance.post("/users", payload);
-      router.push("/notes");
+      router.push("/");
       //TODO: Toast
     } catch (err) {
+      console.log("error: ", err);
       //TODO: Toast
     }
   };
